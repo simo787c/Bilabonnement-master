@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="fragments :: head"></head>
+<body>
+
+<nav th:replace="fragments :: navigation"></nav>
+<nav th:replace="fragments :: navigationTop(~{::navTopTitle})">
+    <navTopTitle>
+        <h1>Opret Skadesrapport</h1>
+    </navTopTitle>
+</nav>
+
+<button class="button-font-size pushContentLeft" onclick="javascript:history.back()">Tilbage</button>
+<div class="content-middle-outer">
+    <div class="content-middle-inner">
+        <div class="boxBorderDetailInfo">
+            <form action="/createCarReport" method="post" id="myFormId">
+                <input type="text" name="contract_id" th:value="${contractId}" readonly hidden>
+                <div class="container1" style="text-align: center">
+                    <button class="add_form_field" style="font-size: 16px; margin: 20px auto;">Tilføj ny
+                        indberetningspunkt
+                        <span style="font-size:16px; font-weight:bold;">+</span>
+                    </button>
+                    <!-- If exceededKmPrice is greater than 0 show div -->
+                    <div th:if="${exceededKmPrice > 0}" style="font-size: 18px; text-align: center; margin: 20px auto;">
+                        <label for="for_type">Vælg type:</label>
+                        <select name="type" id="for_type" style="height: 25px; margin: auto 5px auto 5px;">
+                            <option value="overkørt">Overkørt</option>
+                        </select>
+                        <input type="text" name="description[]" style="height: 25px; width: 300px"
+                               th:value="${'Antal overkørte km ' + exceededKm}" readonly/>
+                        <input th:value="${exceededKmPrice}" type="text" name="prices"
+                               style="height: 25px; width: 115px; margin-left: 7px; margin-right: 80px;" readonly/>
+                    </div>
+                </div>
+                <button class="reportItem-button-style" id="submit" type="button">Opret</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    /**
+     * Every time button "Tilføj ny indberetningspunkt+" clicks on
+     * It adds a div with ->
+     * Select for choosing type
+     * Input for description
+     * input for prices
+     * A tag with a button inside that delete div.
+     */
+    $(document).ready(function () {
+        var max_fields = 15;
+        var wrapper = $(".container1");
+        var add_button = $(".add_form_field");
+
+        var x = 1;
+        $(add_button).click(function (e) {
+            e.preventDefault();
+            if (x < max_fields) {
+                x++;
+                $(wrapper).append('<div style="font-size: 18px; text-align: center; margin: 20px auto;">' +
+                    '<label for="for_type">Vælg type:</label>' +
+                    '<select name="type" id="for_type" style="height: 25px; margin: auto 10px auto 5px;">' +
+                    '<option value="skade">Skade</option>' +
+                    '<option value="fejl">Fejl</option>' +
+                    '<option value="mangel">Mangel</option>' +
+                    '<option value="andet">Andet</option>' +
+                    '</select>' +
+                    '<input type="text" name="description[]" placeholder="Beskrivelse udfyldes her" style="height: 25px; width: 300px"/>' +
+                    '<input type="text" name="prices" placeholder="Prisen udfyldes her" style="height: 25px; width: 115px; margin-left: 10px"/>' +
+                    '<a href="#" class="delete"><button style="margin-left: 10px">Delete</button></a>' +
+                    '</div>'); //add selection and input box
+            } else {
+                alert('Grænsen på 15 indberetningspunkter er nået!')
+            }
+        });
+        $(wrapper).on("click", ".delete", function (e) {
+            e.preventDefault();
+            $(this).parent('div').remove();
+            x--;
+        })
+    });
+</script>
+
+<script>
+    function checkInputFields() {
+        $('#submit').on('click', function () {
+            let input = 0;
+            let radio = 0;
+            let text = 0;
+
+            $('#myFormId input[type="text"]').each(function (key, inputField) {
+                if ($(inputField).val() === '') {
+                    //do nothing, or exit script early, whatever floats your boat
+                } else {
+                    input++;
+                    if (input === $('#myFormId input[type="text"]').length) {
+                        input = true;
+                    }
+                }
+            });
+
+            if (input === true) {
+                $('#submit').attr('type', 'submit');
+                $('#submit').click();
+            } else {
+                console.log('You forgot to fill out every required field my man.');
+            }
+        });
+    }
+
+    //document.read(function(){});
+    $(function () {
+        checkInputFields();
+    });
+</script>
+
+</body>
+</html>

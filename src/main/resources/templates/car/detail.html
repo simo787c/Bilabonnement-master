@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:word-wrap="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments :: head"></head>
+<body>
+<nav th:replace="fragments :: navigation"></nav>
+
+<nav th:replace="fragments :: navigationTop(~{::navTopTitle})">
+    <navTopTitle>
+        <h1><i class="fa fa-car" aria-hidden="true"></i> Bil detaljer</h1>
+    </navTopTitle>
+</nav>
+
+<div class="content-middle-outer">
+    <button type="button" onclick="javascript:history.back()">Tilbage</button>
+    <div class="content-middle-inner" style="flex-direction: column">
+        <div class="boxBorderDetailInfo">
+            <div class="boxFeltDetailLeft">
+                <fieldset>
+                    <legend>Vognnummer</legend>
+                    <label class="label-style" th:text="${car.car_number}"></label><br/>
+                </fieldset>
+            </div>
+            <div class="boxFeltDetailRight">
+                <fieldset>
+                    <legend>Stelnummer</legend>
+                    <label class="label-style" th:text="${car.chassis_number}"></label><br/>
+                </fieldset>
+            </div>
+            <br/><br/>
+            <div class="boxFeltDetailLeft">
+                <fieldset>
+                    <legend>Mærke</legend>
+                    <label class="label-style" th:text="${car.brand}"></label><br/>
+                </fieldset>
+            </div>
+            <div class="boxFeltDetailRight">
+                <fieldset>
+                    <legend>Model</legend>
+                    <label class="label-style" th:text="${car.model}"></label><br/>
+                </fieldset>
+            </div>
+            <br/><br/>
+            <div class="boxFeltDetailLeft">
+                <fieldset>
+                    <legend>Brændstofstype</legend>
+                    <label class="label-style" th:text="${car.fuel_type}"></label><br/>
+                </fieldset>
+            </div>
+            <div class="boxFeltDetailRight">
+                <fieldset>
+                    <legend>Gearsystem</legend>
+                    <label class="label-style" th:text="${car.gear_type}"></label><br/>
+                </fieldset>
+            </div>
+            <br/><br/>
+            <div class="boxFeltDetailLeft">
+                <fieldset>
+                    <legend>Odometer</legend>
+                    <label class="label-style" th:text="${car.odometer}"></label><br/>
+                </fieldset>
+            </div>
+            <div class="boxFeltDetailRight">
+                <fieldset>
+                    <legend>Skrotpris</legend>
+                    <label class="label-style" th:text="${car.scrap_price}"></label><br/>
+                </fieldset>
+            </div>
+            <br/><br/>
+            <div class="boxFeltDetailLeft">
+                <fieldset>
+                    <legend>Registreringsgebyr</legend>
+                    <label class="label-style" th:text="${car.registration_fee}"></label><br/>
+                </fieldset>
+            </div>
+            <div class="boxFeltDetailRight">
+                <fieldset>
+                    <legend>Co2 Udledning</legend>
+                    <label class="label-style" th:text="${car.co2_emission}"></label><br/>
+                </fieldset>
+            </div>
+            <br/><br/>
+            <div class="boxFeltDetailLeft">
+                <fieldset>
+                    <legend>Brændstofforbrug</legend>
+                    <label class="label-style" th:text="${car.mileage}"></label><br/>
+                </fieldset>
+            </div>
+            <div class="boxFeltDetailRight">
+                <fieldset>
+                    <legend>Udlejningsstatus</legend>
+                    <label class="label-style" th:text="${car.status}"></label><br/>
+                </fieldset>
+            </div>
+            <input type="submit" value="Opret" style="visibility: hidden ">
+            <br/><br/>
+            <div>
+                <button class="collapsible">Se den fulde udstyrsliste</button>
+                <div class="content" style="text-align: left; box-sizing: border-box; border: 2px solid #777">
+                    <ul>
+                        <li th:if="${car.radio == 'Ja'}">Radio</li>
+                        <li th:if="${car.bluetooth == 'Ja'}">Bluetooth</li>
+                        <li th:if="${car.headlights == 'Ja'}">Kørelys</li>
+                        <li th:if="${car.rims == 'Ja'}">Fælger</li>
+                        <li th:if="${car.airbags == 'Ja'}">Airbags</li>
+                        <li th:if="${car.speakers == 'Ja'}">Højtalere</li>
+                        <li th:if="${car.touchscreen == 'Ja'}">Touchskærm</li>
+                        <li th:if="${car.aircondition == 'Ja'}">Klimaanlæg</li>
+                        <li th:if="${car.apple_carplay == 'Ja'}">Apple CarPlay</li>
+                        <li th:if="${car.active_safety_break == 'Ja'}">Active Safety Break</li>
+                        <li th:if="${car.remote_lock == 'Ja'}">Fjernbetjent Centrallås</li>
+                        <li th:if="${car.electric_windows == 'Ja'}">El Ruder</li>
+                        <li th:if="${car.electronic_stability_program == 'Ja'}">Elektronisk Stabilitets Program</li>
+                        <li th:if="${car.speed_pilot == 'Ja'}">Fart Pilot</li>
+                        <li th:if="${car.heating_adjustable_seats == 'Ja'}">Justerbare Sæder Med Sædevarme</li>
+                        <li th:if="${car.hill_assist == 'Ja'}">Hill Assist</li>
+                        <li th:if="${car.fog_lights == 'Ja'}">Tågeforlygter</li>
+                        <li th:if="${car.leather_steering_wheel == 'Ja'}">Læderrat</li>
+                        <li th:if="${car.parking_sensor == 'Ja'}">Parkeringssensor</li>
+                        <li th:if="${car.electric_adjustable_side_mirror == 'Ja'}">El-Justerbare Sidespejle</li>
+                        <li th:if="${car.alarm == 'Ja'}">Træthedsalarm</li>
+                        <li th:if="${car.usb == 'Ja'}">USB Indgang</li>
+                        <li th:if="${car.lane_departure_warning == 'Ja'}">Vejbane Assist</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
+
+    for (i = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function () {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            if (content.style.maxHeight) {
+                content.style.maxHeight = null;
+            } else {
+                content.style.maxHeight = content.scrollHeight + "px";
+            }
+        });
+    }
+</script>
+</body>
+</html>

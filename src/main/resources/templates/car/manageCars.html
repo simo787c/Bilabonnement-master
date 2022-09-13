@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments :: head"></head>
+<head>
+    <link rel="stylesheet" th:href="@{/css/styleCar.css}">
+</head>
+<body style="background-color: rgb(191 191 191);">
+
+<nav th:replace="fragments :: navigation"></nav>
+
+<nav th:replace="fragments :: navigationTop(~{::navTopTitle})">
+    <navTopTitle>
+        <h1><i class="fa fa-car" aria-hidden="true"></i> Lager Oversigt</h1>
+    </navTopTitle>
+</nav>
+
+<div class="content-middle-outer">
+    <button class="button-font-size" onclick="window.location.href='/'">Tilbage</button>
+    <div class="content-wrapper">
+        <div class="content-middle-inner" style="text-align: center; flex-direction: column;">
+            <!--<h1>Car list</h1>-->
+            <div>
+                <details class="carDetails">
+                    <summary>
+                        Filter
+                    </summary>
+                    <div class="filterBox">
+                        <div class="divCenterInside">
+                            <!-- Search form -->
+                            <form th:action="@{/manageCars/search/}" method="get" style="margin: 25px 34px;">
+                                <input id="txtSrch" type="text" name="keyword" style="height: 25px"
+                                       placeholder="Indtast det du vil søge efter">
+                                <button type="submit" style="height: 30px; width: 80px">Søg</button>
+                            </form>
+                            <!-- Radio buttons -->
+                            <div style="margin: 25px 23px;">
+                                <div class="switch-field">
+                                    <!-- Choice "Intet valgt -->
+                                    <input type="radio" id="none" name="sorted" value="none"
+                                           th:checked="${choice == null}"/>
+                                    <label for="none" style="height: 15px">Intet valgt</label>
+                                    <!-- Choice "Brand" -->
+                                    <input type="radio" id="brand" name="sorted" value="brand"
+                                           th:checked="${choice == 0}"/>
+                                    <label for="brand" style="height: 15px">Mærke</label>
+                                    <!-- Choice "Udlejet" -->
+                                    <input type="radio" id="rented" name="sorted" value="Udlejet"
+                                           th:checked="${choice == 1}"/>
+                                    <label for="rented" style="height: 15px">Udlejet</label>
+                                    <!-- Choice "Ikke udlejet" -->
+                                    <input type="radio" id="notRented" name="sorted" value="IkkeUdlejet"
+                                           th:checked="${choice == 2}"/>
+                                    <label for="notRented" style="height: 15px">Ikke udlejet</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </details>
+            </div>
+            <!--
+            <label>Sorter efter:</label>
+
+            <select class="select-style"
+                    size="4" style="height: 78px">
+                <option value="none" onclick="window.location.href='/manageCars'">
+                    Intet valgt
+                </option>
+                <option value="brand" onclick="window.location.href='/manageCars/0'">
+                    Brand
+                </option>
+                <option value="brand" onclick="window.location.href='/manageCars/1'">
+                    Udlejet
+                </option>
+                <option value="brand" onclick="window.location.href='/manageCars/2'">
+                    Ikke Udlejet
+                </option>
+            </select>
+            <br>
+            <form th:action="@{/manageCars/search/}" method="get">
+                <label>Filtrer:</label>
+                <input id="txtSrch" type="text" name="keyword">
+                <button type="submit">Søg</button>
+            </form>-->
+            <div style="font-size: 20px">
+                <table border="1" cellspacing="0" class="table-styling" style="width: 142px">
+                    <thead>
+                    <tr>
+                        <th>Antal</th>
+                        <th>Total Pris</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td th:text="${total}"/>
+                        <td th:text="${total_price}"/>
+                    </tr>
+                    </tbody>
+                </table>
+                <table border="1" cellspacing="0" class="table-styling">
+                    <thead>
+                    <tr>
+                        <th>Vognnummer</th>
+                        <th>Stelnummer</th>
+                        <th>Mærke</th>
+                        <th>Model</th>
+                        <th class="collapsibleView">Brændstofsystem</th>
+                        <th class="collapsibleView">Gear system</th>
+                        <th class="collapsibleView">Odometer</th>
+                        <th class="collapsibleView">Stålpris</th>
+                        <th class="collapsibleView">Reg. afgift</th>
+                        <th class="collapsibleView">CO<sub>2</sub></th>
+                        <th class="collapsibleView">Km/l</th>
+                        <th>Status</th>
+                        <th>Muligheder</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="car: ${cars}" class="table-row-height">
+                        <td th:text="${car.car_number}"/>
+                        <td th:text="${car.chassis_number}"/>
+                        <td th:text="${car.brand}"/>
+                        <td th:text="${car.model}"/>
+                        <td class="collapsibleView" th:text="${car.fuel_type}"/>
+                        <td class="collapsibleView" th:text="${car.gear_type}"/>
+                        <td class="collapsibleView" th:text="${car.odometer}"/>
+                        <td class="collapsibleView" th:text="${car.scrap_price}"/>
+                        <td class="collapsibleView" th:text="${car.registration_fee}"/>
+                        <td class="collapsibleView" th:text="${car.co2_emission}"/>
+                        <td class="collapsibleView" th:text="${car.mileage}"/>
+                        <td th:text="${car.status}"/>
+                        <td style="width: 295px">
+                            <a th:href="@{'/detail/'+${car.car_number}}" class="linksTagRemoveUnderline">
+                                <button class="btnStyle">Detaljer</button>
+                            </a>
+                            <a th:href="@{'/editCar/'+${car.car_number}}" class="linksTagRemoveUnderline">
+                                <button class="btnStyle">Redigér</button>
+                            </a>
+                            <a th:href="@{'/deleteCar/'+${car.car_number}}" class="linksTagRemoveUnderline">
+                                <button class="btnStyle"
+                                        onclick="return confirm('Er du sikker på du vil slette en bil?')">Slet
+                                </button>
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const radioButtons = document.querySelectorAll('input[name="sorted"]');
+    for (const radioButton of radioButtons) {
+        radioButton.addEventListener('change', function (e) {
+            for (const radioButton of radioButtons) {
+                if (radioButton.checked) {
+                    if (radioButton.value === "none") {
+                        window.location.href = '/manageCars'
+                    } else if (radioButton.value === "brand") {
+                        window.location.href = '/manageCars/0'
+                    } else if (radioButton.value === "Udlejet") {
+                        window.location.href = '/manageCars/1'
+                    } else if (radioButton.value === "IkkeUdlejet") {
+                        window.location.href = '/manageCars/2'
+                    }
+                    break;
+                }
+            }
+        });
+    }
+</script>
+
+</body>
+</html>

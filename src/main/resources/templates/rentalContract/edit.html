@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="fragments :: head"></head>
+<body>
+<nav th:replace="fragments :: navigation"></nav>
+
+<nav th:replace="fragments :: navigationTop(~{::navTopTitle})">
+    <navTopTitle>
+        <h1><i class='fas fa-file-signature'></i> Rediger Kontrakt</h1>
+    </navTopTitle>
+</nav>
+
+<div class="content-middle-outer">
+    <button class="button-font-size" onclick="window.location.href='/manageRentalContracts'">Tilbage</button>
+
+    <div class="content-middle-inner">
+        <div class="boxBorderDetailInfo">
+            <form action="/editRentalContract" method="post">
+                <div class="boxFeltDetailMiddle">
+                    <fieldset>
+                        <legend>Max KM</legend>
+                        <input class="input-style" type="text" name="max_km"
+                               th:value="${rentalContract.max_km}"/><br/>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>Start Dato:<sup>*</sup></legend>
+                        <input class="input-style"
+                               type="date" name="start_date"
+                               placeholder="Vælg Dato.."/><br/>
+                    </fieldset>
+
+                    <fieldset>
+                        <legend>Slut Dato:<sup>*</sup></legend>
+                        <input class="input-style"
+                               type="date" name="end_date"
+                               placeholder="Vælg Dato.."/><br/>
+                    </fieldset>
+                </div>
+
+                <input class="input-button-style" type="submit" value="færdiggør Kontrakt">
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

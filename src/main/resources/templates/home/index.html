@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="fragments :: head"></head>
+<body>
+<nav th:replace="fragments :: navigation"></nav>
+
+<nav th:replace="fragments :: navigationTop(~{::navTopTitle})">
+    <navTopTitle>
+        <h1><i class="material-icons" style="font-size: 19px"> dashboard</i> Dashboard</h1>
+    </navTopTitle>
+</nav>
+<div class="content-middle-outer">
+<div class="content-wrapper">
+    <div class="content-left">
+        <h2>Oversigt</h2>
+        <button class="dashboard-button" onclick="window.location.href='/manageCars'"><h3>Lager Oversigt</h3></button>
+
+        <button class="dashboard-button" onclick="window.location.href='/manageRentalContracts'"><h3>Lejekontrakter</h3></button>
+
+        <button class="dashboard-button" onclick="window.location.href='/manageCustomer'"><h3>Kunderegister</h3></button>
+
+        <button class="dashboard-button" onclick="window.location.href='/manageReports'"><h3>Skaderegistrering</h3></button>
+    </div>
+    <div class="content-left">
+        <h2>Opret</h2>
+        <button class="dashboard-button" onclick="window.location.href='/createCar'"><h3>Biler</h3></button>
+        <button class="dashboard-button" onclick="window.location.href='/createRentalContract/0'"><h3>Lejekontrakt</h3></button>
+        <button class="dashboard-button" onclick="window.location.href='/createCustomer'"><h3>Kunde</h3></button>
+
+    </div>
+
+</div>
+</div>
+
+<!--<div style="margin-left: 200px; padding-top: 50px;">
+    <div style="margin: 0 auto; max-width: 1000px; box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;">
+        <img th:src="@{/image/Dashboard.png}" style="max-width: 1000px; width: 100%">
+    </div>
+</div>-->
+</body>
+</html>

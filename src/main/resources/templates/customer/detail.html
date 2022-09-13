@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:word-wrap="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments :: head"></head>
+<body>
+<nav th:replace="fragments :: navigation"></nav>
+
+<nav th:replace="fragments :: navigationTop(~{::navTopTitle})">
+    <navTopTitle>
+        <h1><i class="fas fa-user" aria-hidden="true"></i> Kunde detaljer</h1>
+    </navTopTitle>
+</nav>
+
+<div class="content-middle-outer">
+    <button type="button" onclick="javascript:history.back()">Tilbage</button>
+    <div class="content-middle-inner">
+        <div class="boxBorderDetailInfo">
+            <div class="boxFeltDetailLeft">
+                <fieldset>
+                    <legend>Kunde ID</legend>
+                    <label class="label-style" th:text="${customer.customer_id}"></label>
+                </fieldset>
+            </div>
+            <div class="boxFeltDetailRight">
+                <fieldset>
+                    <legend>Navn</legend>
+                    <label class="label-style" th:text="${customer.first_name + ' ' + customer.last_name}"></label>
+                </fieldset>
+            </div>
+            <div class="boxFeltDetailLeft">
+                <fieldset>
+                    <legend>Adresse</legend>
+                    <label class="label-style" th:text="${customer.address}"></label>
+                </fieldset>
+            </div>
+            <div class="boxFeltDetailRight">
+                <fieldset>
+                    <legend>Postnummer</legend>
+                    <label class="label-style" th:text="${customer.zip_code}"></label>
+                </fieldset>
+            </div>
+            <div class="boxFeltDetailLeft">
+                <fieldset>
+                    <legend>E-mail</legend>
+                    <label class="label-style" th:text="${customer.email}"></label>
+                </fieldset>
+            </div>
+            <div class="boxFeltDetailRight">
+                <fieldset>
+                    <legend>Mobil</legend>
+                    <label class="label-style" th:text="${customer.phone}"></label>
+                </fieldset>
+            </div>
+            <div class="boxFeltDetailLeft">
+                <fieldset>
+                    <legend>CPR-nummer</legend>
+                    <label class="label-style" th:text="${customer.ssn}"></label>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

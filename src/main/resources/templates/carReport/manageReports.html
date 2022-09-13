@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:word-wrap="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments :: head"></head>
+<body>
+
+<nav th:replace="fragments :: navigation"></nav>
+
+<nav th:replace="fragments :: navigationTop(~{::navTopTitle})">
+    <navTopTitle>
+        <h1><i class="fas fa-car-crash" aria-hidden="true"></i> Skaderegister</h1>
+    </navTopTitle>
+</nav>
+
+<div class="content-middle-outer">
+    <button class="button-font-size" onclick="window.location.href='/'">Tilbage</button>
+    <div class="content-middle-inner" style="text-align: center">
+        <div style="font-size: 20px">
+            <table  border="1" cellspacing="0" class="table-styling"id="myTable">
+                <thead>
+                <tr>
+                    <th>Rapport nummer</th>
+                    <th>Kontrakt nummer</th>
+                    <th>Mængde</th>
+                    <th>Typer</th>
+                    <th>Total pris</th>
+                    <th>Muligheder</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="report : ${carReports}" class="table-row-height">
+                    <td th:text="${report.report_id}" class="item"/>
+                    <td th:text="${report.contract_id}"/>
+                    <td th:text="${report.items.size()}"/>
+                    <td class="table-row-height">
+                        <th:block th:if="${!carReports.get(reportStat.count-1).getItems().isEmpty()}"
+                                  th:each="i: ${#numbers.sequence(1, carReports.get(reportStat.count-1).getItems().size())}">
+                            <span th:if="${i-1 >= 1}">,&nbsp</span>
+                            <span th:text="${carReports.get(reportStat.count-1).getItems().get(i-1).getType()}"></span>
+                        </th:block>
+                    </td>
+                    <td><span th:text="${report.total_price}"></span></td>
+                    <td style="width: 295px">
+                        <a th:href="@{'/detailCarReport/'+${report.report_id}}" class="linksTagRemoveUnderline">
+                            <button class="btnStyle">Detaljer</button>
+                        </a>
+                        <a th:href="@{'/editCarReport/'+${report.report_id}}" class="linksTagRemoveUnderline">
+                            <button class="btnStyle">Redigér</button>
+                        </a>
+                    </td>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

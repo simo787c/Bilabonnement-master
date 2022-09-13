@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:word-wrap="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments :: head">
+    <link rel="stylesheet" th:href="@{/css/styleCar.css}">
+</head>
+<body>
+<nav th:replace="fragments :: navigation"></nav>
+
+<nav th:replace="fragments :: navigationTop(~{::navTopTitle})">
+    <navTopTitle>
+        <h1><i class="fas fa-car-crash" aria-hidden="true"></i> Skadesrapport Detaljer</h1>
+    </navTopTitle>
+</nav>
+
+<div class="content-middle-outer">
+    <button type="button" onclick="javascript:history.back()">Tilbage</button>
+    <div class="content-middle-inner">
+        <div class="boxBorderDetailInfo">
+            <div class="boxFeltDetailLeft">
+                <fieldset>
+                    <legend>Bil</legend>
+                    <label class="label-style" th:text="${car.brand + ' ' + car.model}"></label><br/>
+                </fieldset>
+            </div>
+            <div class="boxFeltDetailRight">
+                <fieldset>
+                    <legend>Kunde</legend>
+                    <label class="label-style" th:text="${customer.first_name + ' ' + customer.last_name}"></label><br/>
+                </fieldset>
+            </div>
+            <br><br>
+            <hr class="underline">
+            <th:block th:if="${!reports.getItems().isEmpty()}"
+                      th:each="i: ${#numbers.sequence(1, reports.getItems().size())}">
+                <div class="boxFeltDetailLeft">
+                    <fieldset>
+                        <legend>Indberetningspunkt</legend>
+                        <span>Skade type</span>
+                        <label class="label-style" th:text="${reports.getItems().get(i - 1).getType()}"></label>
+                        <span>Skade beskrivelse</span>
+                        <label class="label-style"
+                               th:text="${reports.getItems().get(i - 1).getDescription()}"></label><br/>
+                        <span>Pris</span>
+                        <label class="label-style" th:text="${reports.getItems().get(i - 1).getPrice()}"></label><br/>
+                    </fieldset>
+                </div>
+            </th:block>
+            <hr class="underline">
+            <div class="boxFeltDetailMiddle">
+                <fieldset>
+                    <legend>Total pris</legend>
+                    <label class="label-style" th:text="${totalPrice}"></label><br/>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

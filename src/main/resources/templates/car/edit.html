@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="fragments :: head">
+    <link rel="stylesheet" th:href="@{/css/styleCar.css}">
+</head>
+<body>
+<nav th:replace="fragments :: navigation"></nav>
+
+<nav th:replace="fragments :: navigationTop(~{::navTopTitle})">
+    <navTopTitle>
+        <h1><i class="fa fa-car" aria-hidden="true"></i> Redigér bil</h1>
+    </navTopTitle>
+</nav>
+
+<div class="content-middle-outer">
+    <button type="button" onclick="javascript:history.back()">Tilbage</button>
+    <div class="content-middle-inner">
+        <div class="boxBorderInfo">
+            <form action="/editCar" method="post">
+                <!-- Mærke, Model, Stelnummer, odometer -->
+                <div class="boxFeltDetailLeft">
+                    <fieldset>
+                        <legend>Mærke</legend>
+                        <input class="input-style" type="text" name="brand"
+                               placeholder="Indtast bil brand her" th:value="${car.brand}"/><br/>
+                    </fieldset>
+                </div>
+                <div class="boxFeltDetailRight">
+                    <fieldset>
+                        <legend>Model</legend>
+                        <input class="input-style" type="text" name="model"
+                               placeholder="Indtast bil modelen her" th:value="${car.model}"/><br/>
+                    </fieldset>
+                </div>
+                <br/><br/>
+                <div class="boxFeltDetailLeft">
+                    <fieldset>
+                        <legend>Stelnummer</legend>
+                        <input class="input-style" type="text" name="chassis_number"
+                               placeholder="Indtast stelnummer her" th:value="${car.chassis_number}"/><br/>
+                    </fieldset>
+                </div>
+                <div class="boxFeltDetailRight">
+                    <fieldset>
+                        <legend>Odometer</legend>
+                        <input class="input-style" type="text" name="odometer"
+                               placeholder="Indtast odometer her" th:value="${car.odometer}"/><br/>
+                    </fieldset>
+                </div>
+
+                <!-- System types -->
+                <div class="boxFeltDetailLeft">
+                    <fieldset>
+                        <legend>Brændstofsystem</legend>
+                        <select th:switch="${car.fuel_type}" class="select-style" name="fuel_type" id="fuel">
+                            <div th:case="${'Benzin'}">
+                                <option value="Benzin">Benzin</option>
+                                <option value="Diesel">Diesel</option>
+                                <option value="Elektrisk">Elektrisk</option>
+                                <option value="Hybrid">Hybrid</option>
+                            </div>
+                            <div th:case="${'Diesel'}">
+                                <option value="Diesel">Diesel</option>
+                                <option value="Benzin">Benzin</option>
+                                <option value="Elektrisk">Elektrisk</option>
+                                <option value="Hybrid">Hybrid</option>
+                            </div>
+                            <div th:case="${'Elektrisk'}">
+                                <option value="Elektrisk">Elektrisk</option>
+                                <option value="Benzin">Benzin</option>
+                                <option value="Diesel">Diesel</option>
+                                <option value="Hybrid">Hybrid</option>
+                            </div>
+                            <div th:case="${'Hybrid'}">
+                                <option value="Hybrid">Hybrid</option>
+                                <option value="Benzin">Benzin</option>
+                                <option value="Diesel">Diesel</option>
+                                <option value="Elektrisk">Elektrisk</option>
+                            </div>
+                        </select>
+                    </fieldset>
+                </div>
+                <div class="boxFeltDetailRight">
+                    <fieldset>
+                        <legend>Gear system</legend>
+                        <select class="select-style" name="gear_type" id="gear_type">
+                            <option value="Manuelt">Manuelt gear</option>
+                            <option value="Automat">Automatic gear</option>
+                        </select>
+                    </fieldset>
+                </div>
+
+                <!-- Box for pricing and "/" -->
+                <div class="boxFeltDetailLeft">
+                    <fieldset>
+                        <legend>Stålpris</legend>
+                        <input class="input-style" type="text" name="scrap_price"
+                               placeholder="Indtast stålpris/skrotpris her" th:value="${car.scrap_price}"/><br/>
+                    </fieldset>
+                </div>
+                <div class="boxFeltDetailRight">
+                    <fieldset>
+                        <legend>Reg. afgift</legend>
+                        <input class="input-style" type="text" name="registration_fee"
+                               placeholder="Indtast reg. afgift her" th:value="${car.registration_fee}"/><br/>
+                    </fieldset>
+                </div>
+
+                <div class="boxFeltDetailLeft">
+                    <fieldset>
+                        <legend>CO<sub>2</sub> udledning</legend>
+                        <input class="input-style" type="text" name="co2_emission"
+                               placeholder="Indtast CO2 udledning her" th:value="${car.co2_emission}"/><br/>
+                    </fieldset>
+                </div>
+                <div class="boxFeltDetailRight">
+                    <fieldset>
+                        <legend>Km/l</legend>
+                        <input class="input-style" type="text" name="mileage"
+                               placeholder="Indtast Kilometer pr. liter her" th:value="${car.mileage}"/><br/>
+                    </fieldset>
+                </div>
+                <div style="display: none;">
+                    <label for="for_status">Vælg status:</label>
+                    <select name="status" id="for_status">
+                        <option value="ikke udlejet">ikke udlejet</option>
+                        <option value="udlejet">udlejet</option>
+                    </select>
+                </div>
+
+                <input type="text" name="car_number" th:value="${car.car_number}" readonly hidden>
+
+                <input class="input-button-style" type="submit" value="Gem Ændringer">
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

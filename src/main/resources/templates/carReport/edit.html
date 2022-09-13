@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="fragments :: head"></head>
+<body>
+<nav th:replace="fragments :: navigation"></nav>
+
+<nav th:replace="fragments :: navigationTop(~{::navTopTitle})">
+    <navTopTitle>
+        <h1><i class='fas fa-file-signature'></i> Redigér Skadesrapport</h1>
+    </navTopTitle>
+</nav>
+
+
+<div class="content-middle-outer">
+    <button class="button-font-size" onclick="window.location.href='/manageReports'">Tilbage</button>
+
+    <div class="content-middle-inner">
+        <form action="/editReport" method="post">
+            <div class="boxBorderInfo">
+                <!-- Type, Description, pris -->
+                <th:block th:if="${!reports.getItems().isEmpty()}"
+                          th:each="i: ${#numbers.sequence(1, reports.getItems().size())}">
+                    <input type="text" name="itemID" th:value="${reports.getItems().get(i - 1).getReport_item_id()}"
+                           readonly hidden>
+                    <div class="boxFeltDetailLeft" id="editCarReport-boxFeltDetailCenter">
+                        <fieldset>
+                            <legend>Indberetningspunkt</legend>
+                            <span>Skadestyper</span>
+                            <select th:switch="${reports.getItems().get(i - 1).getType()}" class="select-style"
+                                    name="type">
+                                <div th:case="${'Skade'}">
+                                    <option value="Skade">Skade</option>
+                                    <option value="Fejl">Fejl</option>
+                                    <option value="Mangel">Mangel</option>
+                                    <option value="Andet">Andet</option>
+                                </div>
+                                <div th:case="${'Fejl'}">
+                                    <option value="Fejl">Fejl</option>
+                                    <option value="Skade">Skade</option>
+                                    <option value="Mangel">Mangel</option>
+                                    <option value="Andet">Andet</option>
+                                </div>
+                                <div th:case="${'Mangel'}">
+                                    <option value="Mangel">Mangel</option>
+                                    <option value="Skade">Skade</option>
+                                    <option value="Fejl">Fejl</option>
+                                    <option value="Andet">Andet</option>
+                                </div>
+                                <div th:case="${'Overkørt'}">
+                                    <option value="Overkørt">Overkørt</option>
+                                </div>
+                                <div th:case="${'Andet'}">
+                                    <option value="Andet">Andet</option>
+                                    <option value="Skade">Skade</option>
+                                    <option value="Fejl">Fejl</option>
+                                    <option value="Mangel">Mangel</option>
+                                </div>
+                            </select>
+                            <!-- If there is not a type 'Overkørt' then show this -->
+                            <span  th:if="${reports.getItems().get(i - 1).getType()} != 'Overkørt'">Skade beskrivelse</span>
+                            <input th:if="${reports.getItems().get(i - 1).getType()} != 'Overkørt'" class="input-style" type="text" name="description"
+                                   placeholder="Indtast skade beskrivelsen her"
+                                   th:value="${reports.getItems().get(i - 1).getDescription()}"/><br/>
+                            <span  th:if="${reports.getItems().get(i - 1).getType()} != 'Overkørt'">Pris</span>
+                            <input th:if="${reports.getItems().get(i - 1).getType()} != 'Overkørt'" class="input-style" type="text" name="prices"
+                                   placeholder="Indtast pris her"
+                                   th:value="${reports.getItems().get(i - 1).getPrice()}"/><br/>
+                            <!-- If there is a type 'Overkørt' then show this -->
+                            <span th:if="${reports.getItems().get(i - 1).getType()} == 'Overkørt'">Skade beskrivelse</span>
+                            <input th:if="${reports.getItems().get(i - 1).getType()} == 'Overkørt'" class="input-style" type="text" name="description"
+                                   placeholder="Indtast skade beskrivelsen her"
+                                   th:value="${reports.getItems().get(i - 1).getDescription()}" readonly/><br/>
+                            <span th:if="${reports.getItems().get(i - 1).getType()} == 'Overkørt'">Pris</span>
+                            <input th:if="${reports.getItems().get(i - 1).getType()} == 'Overkørt'" class="input-style" type="text" name="prices"
+                                   placeholder="Indtast pris her"
+                                   th:value="${reports.getItems().get(i - 1).getPrice()}" readonly/><br/>
+                        </fieldset>
+                    </div>
+                    <hr id="underline">
+                </th:block>
+                <input type="text" name="report_id" th:value="${reports.report_id}" readonly hidden>
+
+                <input class="input-button-style" type="submit" value="Gem Ændringer">
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

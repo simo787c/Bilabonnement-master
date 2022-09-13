@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments :: head"></head>
+<body>
+<nav th:replace="fragments :: navigation"></nav>
+
+<nav th:replace="fragments :: navigationTop(~{::navTopTitle})">
+    <navTopTitle>
+        <h1><i class="fas fa-users"></i> Kunderegister</h1>
+    </navTopTitle>
+</nav>
+
+<div class="content-middle-outer">
+    <button class="button-font-size" onclick="window.location.href='/'">Tilbage</button>
+    <div class="content-middle-inner" style="text-align: center">
+        <div style="font-size: 20px">
+            <table  border="1" cellspacing="0" class="table-styling">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Navn</th>
+                    <th class="collapsibleView">Address</th>
+                    <th>E-mail</th>
+                    <th>Mobil</th>
+                    <th class="collapsibleView">SSN</th>
+                    <th class="collapsibleView">Postnummer</th>
+                    <th>Muligheder</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="customer: ${customers}" class="table-row-height">
+                    <td th:text="${customer.customer_id}"/>
+                    <td th:text="${customer.first_name + ' ' + customer.last_name}"/>
+                    <td class="collapsibleView" th:text="${customer.address}"/>
+                    <td th:text="${customer.email}"/>
+                    <td th:text="${customer.phone}"/>
+                    <td class="collapsibleView" th:text="${customer.ssn}"/>
+                    <td class="collapsibleView" th:text="${customer.zip_code}"/>
+                    <td style="width: 295px">
+                        <a th:href="@{'/customerDetail/'+${customer.customer_id}}" class="linksTagRemoveUnderline">
+                            <button class="btnStyle">Detaljer</button>
+                        </a>
+                        <a th:href="@{'/editCustomer/'+${customer.customer_id}}" class="linksTagRemoveUnderline">
+                            <button class="btnStyle">Redigér</button>
+                        </a>
+                        <a th:href="@{'/deleteCustomer/'+${customer.customer_id}}" class="linksTagRemoveUnderline">
+                            <button class="btnStyle" onclick="return confirm('Er du sikker på du vil slette en kunde?')">Slet</button>
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

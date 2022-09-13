@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="fragments :: head">
+</head>
+<head>
+    <link rel="stylesheet" th:href="@{/css/styleCar.css}">
+</head>
+<body>
+<nav th:replace="fragments :: navigation"></nav>
+<nav th:replace="fragments :: navigationTop(~{::navTopTitle})">
+    <navTopTitle>
+        <h1>Opret ny kontrakt</h1>
+    </navTopTitle>
+</nav>
+<div class="content-middle-outer">
+    <button class="button-font-size" onclick="window.location.href='/manageRentalContracts'">Tilbage</button>
+    <div class="boxBorderInfo" style="width: 70vw">
+        <div class="content-wrapper" style="flex-wrap: wrap; text-align: center">
+            <div style="margin: 0px 10px 0px 10px;">
+                <h2>Vælg en bil</h2>
+                <table border="1" cellspacing="0" class="table-styling">
+                    <thead>
+                    <tr>
+                        <th>Vognnummer</th>
+                        <!--<th class="collapsibleView">Stelnummer</th>-->
+                        <th>Mærke</th>
+                        <th>Model</th>
+                        <!--<th class="collapsibleView">Brændstofsystem</th>
+                        <th class="collapsibleView">Gear system</th>
+                        <th class="collapsibleView">Odometer</th>
+                        <th class="collapsibleView">Stålpris</th>
+                        <th class="collapsibleView">Reg. afgift</th>
+                        <th class="collapsibleView">CO<sub>2</sub></th>
+                        <th class="collapsibleView">Km/l</th>-->
+                        <th>Status</th>
+                        <th>Edit</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="car: ${cars}">
+                        <td th:text="${car.car_number}"/>
+                        <!--<td class="collapsibleView" th:text="${car.chassis_number}"/>-->
+                        <td th:text="${car.brand}"/>
+                        <td th:text="${car.model}"/>
+                        <!--<td class="collapsibleView" th:text="${car.fuel_type}"/>
+                        <td class="collapsibleView" th:text="${car.gear_type}"/>
+                        <td class="collapsibleView" th:text="${car.odometer}"/>
+                        <td class="collapsibleView" th:text="${car.scrap_price}"/>
+                        <td class="collapsibleView" th:text="${car.registration_fee}"/>
+                        <td class="collapsibleView" th:text="${car.co2_emission}"/>
+                        <td class="collapsibleView" th:text="${car.mileage}"/>-->
+                        <td th:text="${car.status}"/>
+                        <td>
+                            <a th:href="@{'/createRentalContract/'+${car.car_number}}" class="linksTagRemoveUnderline">
+                                <button>Vælg</button>
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div style="margin: 0px 10px 0px 10px;">
+                <h2>Vælg en kunde</h2>
+                <div>
+                    <table border="1" cellspacing="0" class="table-styling" id="myTable">
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Navn</th>
+                            <!--<th class="box">Adresse</th>-->
+                            <th>E-mail</th>
+                            <th>Mobil</th>
+                            <!--<th class="box">Postnummer</th>-->
+                            <th>Valg</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="customer: ${customers}" style="height: 50px;">
+                            <td th:text="${customer.customer_id}" class="customerID"/>
+                            <td th:text="${customer.first_name + ' ' + customer.last_name}"/>
+                            <!--<td th:text="${customer.address}"/>-->
+                            <td th:text="${customer.email}"/>
+                            <td th:text="${customer.phone}"/>
+                            <!--<td th:text="${customer.zip_code}"/>-->
+                            <td>
+                                <label><input type="radio" class="btnSelect" name="customerSelect"
+                                              style="width: 25px; height: 25px"></label>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <br><br>
+        <div class="content-wrapper" style="flex-wrap: wrap; text-align: center">
+            <form action="/createRentalContract" method="post">
+                <!-- only display car_number if it isnt the default value 0 -->
+                <input th:if="${default > 0}" type="text" name="car_number" th:value="${car.car_number}" readonly
+                       hidden>
+                <input type="text" name="customer_id" id="getCustomerID" readonly hidden>
+
+                <fieldset>
+                    <legend>Max KM</legend>
+                    <input class="input-style" type="text" name="max_km"
+                           placeholder="Indtast max kilometer"/><br/>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Start Dato:<sup>*</sup></legend>
+                    <input class="input-font-size input-width"
+                           type="date" name="start_date" id="startDate"
+                           placeholder="Vælg Dato.."/><br/>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Slut Dato:<sup>*</sup></legend>
+                    <input class="input-font-size input-width"
+                           type="date" name="end_date" id="endDate"
+                           placeholder="Vælg Dato.."/><br/>
+                </fieldset>
+
+                <input class="input-button-style" type="submit" value="Opret"
+                       style="margin: 25px 10px 25px 10px">
+            </form>
+        </div>
+    </div>
+</div>
+<!-- workaround for refreshing page losing car choice when choosing a customer  -->
+<script>
+    //$(document).ready(function(){
+    $("#myTable").on('click', '.btnSelect', function () {
+        // get the current row
+        var currentRow = $(this).closest("tr");
+
+        var col1 = currentRow.find(".customerID").html(); // get current row 1st table cell TD value - få value fra customerID som er fra customer.customer_id
+        $("#getCustomerID").val(col1);
+        alert(col1); // Alert boks kommer frem og viser customer id (kan fjernes)
+    });
+    //});
+</script>
+
+<script>
+    /* Disable previous date from today date */
+    var today = new Date().toISOString().split('T')[0];
+    document.getElementsByName("start_date")[0].setAttribute('min', today);
+
+    /* Disable dates 120 days after chosen start date */
+    let numberOfDaysAfterStart = 120;
+    $("#startDate").change(function(){
+        let start = new Date($(this).val());
+        start.setDate(start.getDate() + numberOfDaysAfterStart);
+        start = start.toISOString().slice(0,10);
+        $("#endDate").prop("min", start);
+        $("#endDate").val(""); //clear end date input when start date changes
+    });
+</script>
+
+</body>
+</html>

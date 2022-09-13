@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="fragments :: head"></head>
+<body>
+<nav th:replace="fragments :: navigation"></nav>
+<nav th:replace="fragments :: navigationTop(~{::navTopTitle})">
+    <navTopTitle>
+        <h1>Opret bil</h1>
+    </navTopTitle>
+</nav>
+
+<div class="content-middle-outer">
+    <button type="button" onclick="javascript:history.back()">Tilbage</button>
+    <div class="content-middle-inner">
+        <form action="/createCar" method="post">
+            <div class="boxBorderInfo">
+                <!-- Mærke, Model, Stelnummer, odometer -->
+                <div class="boxFeltDetailLeft">
+                    <fieldset>
+                        <legend>Mærke</legend>
+                        <input class="input-style" type="text" name="brand"
+                               placeholder="Indtast bilens mærke her" required/><br/>
+                    </fieldset>
+                </div>
+                <div class="boxFeltDetailRight">
+                    <fieldset style="border-radius: 10px">
+                        <legend>Model</legend>
+                        <input class="input-style" type="text" name="model"
+                               placeholder="Indtast bilens model her" required/><br/>
+                    </fieldset>
+                </div>
+                <br/><br/>
+                <div class="boxFeltDetailLeft">
+                    <fieldset>
+                        <legend>Stelnummer</legend>
+                        <input class="input-style" type="text" name="chassis_number"
+                               placeholder="Indtast stelnummer her" required/><br/>
+                    </fieldset>
+                </div>
+                <div class="boxFeltDetailRight">
+                    <fieldset>
+                        <legend>Odometer</legend>
+                        <input class="input-style" type="text" name="odometer"
+                               placeholder="Indtast odometer her" required/><br/>
+                    </fieldset>
+                </div>
+
+                <!-- System types -->
+                <div class="boxFeltDetailLeft">
+                    <fieldset>
+                        <legend>Brændstofsystem</legend>
+                        <select class="select-style" name="fuel_type" id="fuel"
+                                size="4" style="height: 78px">
+                            <option value="Benzin">Benzin</option>
+                            <option value="Diesel">Diesel</option>
+                            <option value="Elektrisk">Elektrisk</option>
+                            <option value="Hybrid">Hybrid</option>
+                        </select>
+                    </fieldset>
+                </div>
+                <div class="boxFeltDetailRight">
+                    <fieldset>
+                        <legend>Gear system</legend>
+                        <select class="select-style" name="gear_type" id="gear_type"
+                                size="2" style="height: 78px">
+                            <option value="Manuelt">Manuelt gear</option>
+                            <option value="Automat">Automatic gear</option>
+                        </select>
+                    </fieldset>
+                </div>
+
+                <!-- Box for pricing and "/" -->
+                <div class="boxFeltDetailLeft">
+                    <fieldset>
+                        <legend>Stålpris</legend>
+                        <input class="input-style" type="text" name="scrap_price"
+                               placeholder="Indtast stålpris/skrotpris her" required/><br/>
+                    </fieldset>
+                </div>
+                <div class="boxFeltDetailRight">
+                    <fieldset>
+                        <legend>Reg. afgift</legend>
+                        <input class="input-style" type="text" name="registration_fee"
+                               placeholder="Indtast reg. afgift her" required/><br/>
+                    </fieldset>
+                </div>
+
+                <div class="boxFeltDetailLeft">
+                    <fieldset>
+                        <legend style="height: 23px">CO<sub>2</sub> udledning</legend>
+                        <input class="input-style" type="text" name="co2_emission"
+                               placeholder="Indtast CO2 udledning her" required/><br/>
+                    </fieldset>
+                </div>
+                <div class="boxFeltDetailRight">
+                    <fieldset>
+                        <legend>Km/l</legend>
+                        <input class="input-style" type="text" name="mileage"
+                               placeholder="Indtast Kilometer pr. liter her" required/><br/>
+                    </fieldset>
+                </div>
+                <div style="display: none; margin-left: 60px">
+                    <label for="for_status">Vælg status:</label>
+                    <select name="status" id="for_status" hidden>
+                        <option value="ikke udlejet">ikke udlejet</option>
+                        <option value="udlejet">udlejet</option>
+                    </select>
+                </div>
+
+                <div class="feature-box">
+                    <fieldset style=" margin-left: 40px">
+                        <legend>Udstyrsliste</legend>
+                        <div style="float: left">
+                            <span>Radio</span>
+                        </div>
+                        <div style="float: right">
+                            <div class="switch-field">
+                                <!-- Choice "Ja" -->
+                                <input type="radio" id="radio-one" name="radio" value="ja"/>
+                                <label for="radio-one" style="height: 15px">Ja</label>
+                                <!-- Choice "Nej" -->
+                                <input type="radio" id="radio-two" name="radio" value="nej" checked/>
+                                <label for="radio-two" style="height: 15px">Nej</label>
+                            </div>
+                        </div>
+                        <br> <br>
+                        <div style="float: left">
+                            <span>Bluetooth</span>
+                        </div>
+                        <div style="float: right">
+                            <div class="switch-field">
+                                <!-- Choice "Ja" -->
+                                <input type="radio" id="bluetooth-one" name="bluetooth" value="ja"/>
+                                <label for="bluetooth-one" style="height: 15px">Ja</label>
+                                <!-- Choice "Nej" -->
+                                <input type="radio" id="bluetooth-two" name="bluetooth" value="nej" checked/>
+                                <label for="bluetooth-two" style="height: 15px">Nej</label>
+                            </div>
+                        </div>
+                        <br> <br>
+                        <div style="float: left">
+                            <span>Headlights</span>
+                        </div>
+                        <div style="float: right">
+                            <div class="switch-field">
+                                <!-- Choice "Ja" -->
+                                <input type="radio" id="headlights-one" name="headlights" value="ja"/>
+                                <label for="headlights-one" style="height: 15px">Ja</label>
+                                <!-- Choice "Nej" -->
+                                <input type="radio" id="headlights-two" name="headlights" value="nej" checked/>
+                                <label for="headlights-two" style="height: 15px">Nej</label>
+                            </div>
+                        </div>
+                        <br> <br>
+                        <div style="float: left">
+                            <span>Rims</span>
+                        </div>
+                        <div style="float: right">
+                            <div class="switch-field">
+                                <!-- Choice "Ja" -->
+                                <input type="radio" id="rims-one" name="rims" value="ja"/>
+                                <label for="rims-one" style="height: 15px">Ja</label>
+                                <!-- Choice "Nej" -->
+                                <input type="radio" id="rims-two" name="rims" value="nej" checked/>
+                                <label for="rims-two" style="height: 15px">Nej</label>
+                            </div>
+                        </div>
+                        <br> <br>
+                        <div style="float: left">
+                            <span>Airbags</span>
+                        </div>
+                        <div style="float: right">
+                            <div class="switch-field">
+                                <!-- Choice "Ja" -->
+                                <input type="radio" id="airbags-one" name="airbags" value="ja"/>
+                                <label for="airbags-one" style="height: 15px">Ja</label>
+                                <!-- Choice "Nej" -->
+                                <input type="radio" id="airbags-two" name="airbags" value="nej" checked/>
+                                <label for="airbags-two" style="height: 15px">Nej</label>
+                            </div>
+                        </div>
+                        <br> <br>
+                        <div style="float: left">
+                            <span>Speakers</span>
+                        </div>
+                        <div style="float: right">
+                            <div class="switch-field">
+                                <!-- Choice "Ja" -->
+                                <input type="radio" id="speakers-one" name="speakers" value="ja"/>
+                                <label for="speakers-one" style="height: 15px">Ja</label>
+                                <!-- Choice "Nej" -->
+                                <input type="radio" id="speakers-two" name="speakers" value="nej" checked/>
+                                <label for="speakers-two" style="height: 15px">Nej</label>
+                            </div>
+                        </div>
+                        <br> <br>
+                        <div style="float: left">
+                            <span>Touchscreen</span>
+                        </div>
+                        <div style="float: right">
+                            <div class="switch-field">
+                                <!-- Choice "Ja" -->
+                                <input type="radio" id="touchscreen-one" name="touchscreen" value="ja"/>
+                                <label for="touchscreen-one" style="height: 15px">Ja</label>
+                                <!-- Choice "Nej" -->
+                                <input type="radio" id="touchscreen-two" name="touchscreen" value="nej" checked/>
+                                <label for="touchscreen-two" style="height: 15px">Nej</label>
+                            </div>
+                        </div>
+                        <br> <br>
+                        <div style="float: left">
+                            <span>Aircondition</span>
+                        </div>
+                        <div style="float: right">
+                            <div class="switch-field">
+                                <!-- Choice "Ja" -->
+                                <input type="radio" id="aircondition-one" name="aircondition" value="ja"/>
+                                <label for="aircondition-one" style="height: 15px">Ja</label>
+                                <!-- Choice "Nej" -->
+                                <input type="radio" id="aircondition-two" name="aircondition" value="nej" checked/>
+                                <label for="aircondition-two" style="height: 15px">Nej</label>
+                            </div>
+                        </div>
+                        <br> <br>
+                        <div style="float: left">
+                            <span>Apple Carplay</span>
+                        </div>
+                        <div style="float: right">
+                            <div class="switch-field">
+                                <!-- Choice "Ja" -->
+                                <input type="radio" id="apple_carplay-one" name="apple_carplay" value="ja"/>
+                                <label for="apple_carplay-one" style="height: 15px">Ja</label>
+                                <!-- Choice "Nej" -->
+                                <input type="radio" id="apple_carplay-two" name="apple_carplay" value="nej"
+                                       checked/>
+                                <label for="apple_carplay-two" style="height: 15px">Nej</label>
+                            </div>
+                        </div>
+                        <br> <br>
+                        <div style="float: left">
+                            <span>Active Safety Break</span>
+                        </div>
+                        <div style="float: right">
+                            <div class="switch-field">
+                                <!-- Choice "Ja" -->
+                                <input type="radio" id="active_safety_break-one" name="active_safety_break"
+                                       value="ja"/>
+                                <label for="active_safety_break-one" style="height: 15px">Ja</label>
+                                <!-- Choice "Nej" -->
+                                <input type="radio" id="active_safety_break-two" name="active_safety_break"
+                                       value="nej" checked/>
+                                <label for="active_safety_break-two" style="height: 15px">Nej</label>
+                            </div>
+                        </div>
+                        <br> <br>
+                        <div style="float: left">
+                            <span>Remote Lock</span>
+                        </div>
+                        <div style="float: right">
+                            <div class="switch-field">
+                                <!-- Choice "Ja" -->
+                                <input type="radio" id="remote_lock-one" name="remote_lock" value="ja"/>
+                                <label for="remote_lock-one" style="height: 15px">Ja</label>
+                                <!-- Choice "Nej" -->
+                                <input type="radio" id="remote_lock-two" name="remote_lock" value="nej" checked/>
+                                <label for="remote_lock-two" style="height: 15px">Nej</label>
+                            </div>
+                        </div>
+                        <br> <br>
+                        <div style="float: left">
+                            <span>Electric Windows</span>
+                        </div>
+                        <div style="float: right">
+                            <div class="switch-field">
+                                <!-- Choice "Ja" -->
+                                <input type="radio" id="electric_windows-one" name="electric_windows" value="ja"/>
+                                <label for="electric_windows-one" style="height: 15px">Ja</label>
+                                <!-- Choice "Nej" -->
+                                <input type="radio" id="electric_windows-two" name="electric_windows" value="nej"
+                                       checked/>
+                                <label for="electric_windows-two" style="height: 15px">Nej</label>
+                            </div>
+                        </div>
+                        <br> <br>
+                        <div style="float: left">
+                            <span>Electronic Stability Program</span>
+                        </div>
+                        <div style="float: right">
+                            <div class="switch-field">
+                                <!-- Choice "Ja" -->
+                                <input type="radio" id="electronic_stability_program-one"
+                                       name="electronic_stability_program" value="ja"/>
+                                <label for="electronic_stability_program-one" style="height: 15px">Ja</label>
+                                <!-- Choice "Nej" -->
+                                <input type="radio" id="electronic_stability_program-two"
+                                       name="electronic_stability_program" value="nej" checked/>
+                                <label for="electronic_stability_program-two" style="height: 15px">Nej</label>
+                            </div>
+                        </div>
+                        <br> <br>
+                        <div style="float: left">
+                            <span>Speed Pilot</span>
+                        </div>
+                        <div style="float: right">
+                            <div class="switch-field">
+                                <!-- Choice "Ja" -->
+                                <input type="radio" id="speed_pilot-one" name="speed_pilot" value="ja"/>
+                                <label for="speed_pilot-one" style="height: 15px">Ja</label>
+                                <!-- Choice "Nej" -->
+                                <input type="radio" id="speed_pilot-two" name="speed_pilot" value="nej" checked/>
+                                <label for="speed_pilot-two" style="height: 15px">Nej</label>
+                            </div>
+                        </div>
+                        <br> <br>
+                        <div style="float: left">
+                            <span>Heating Adjustable Seats</span>
+                        </div>
+                        <div style="float: right">
+                            <div class="switch-field">
+                                <!-- Choice "Ja" -->
+                                <input type="radio" id="heating_adjustable_seats-one"
+                                       name="heating_adjustable_seats" value="ja"/>
+                                <label for="heating_adjustable_seats-one" style="height: 15px">Ja</label>
+                                <!-- Choice "Nej" -->
+                                <input type="radio" id="heating_adjustable_seats-two"
+                                       name="heating_adjustable_seats" value="nej" checked/>
+                                <label for="heating_adjustable_seats-two" style="height: 15px">Nej</label>
+                            </div>
+                        </div>
+                        <br> <br>
+                        <div style="float: left">
+                            <span>Hill Assist</span>
+                        </div>
+                        <div style="float: right">
+                            <div class="switch-field">
+                                <!-- Choice "Ja" -->
+                                <input type="radio" id="hill_assist-one" name="hill_assist" value="ja"/>
+                                <label for="hill_assist-one" style="height: 15px">Ja</label>
+                                <!-- Choice "Nej" -->
+                                <input type="radio" id="hill_assist-two" name="hill_assist" value="nej" checked/>
+                                <label for="hill_assist-two" style="height: 15px">Nej</label>
+                            </div>
+                        </div>
+                        <br> <br>
+                        <div style="float: left">
+                            <span>Fog Lights</span>
+                        </div>
+                        <div style="float: right">
+                            <div class="switch-field">
+                                <!-- Choice "Ja" -->
+                                <input type="radio" id="fog_lights-one" name="fog_lights" value="ja"/>
+                                <label for="fog_lights-one" style="height: 15px">Ja</label>
+                                <!-- Choice "Nej" -->
+                                <input type="radio" id="fog_lights-two" name="fog_lights" value="nej" checked/>
+                                <label for="fog_lights-two" style="height: 15px">Nej</label>
+                            </div>
+                        </div>
+                        <br> <br>
+                        <div style="float: left">
+                            <span>Leather Steering Wheel</span>
+                        </div>
+                        <div style="float: right">
+                            <div class="switch-field">
+                                <!-- Choice "Ja" -->
+                                <input type="radio" id="leather_steering_wheel-one" name="leather_steering_wheel"
+                                       value="ja"/>
+                                <label for="leather_steering_wheel-one" style="height: 15px">Ja</label>
+                                <!-- Choice "Nej" -->
+                                <input type="radio" id="leather_steering_wheel-two" name="leather_steering_wheel"
+                                       value="nej" checked/>
+                                <label for="leather_steering_wheel-two" style="height: 15px">Nej</label>
+                            </div>
+                        </div>
+                        <br> <br>
+                        <div style="float: left">
+                            <span>Parking Sensor</span>
+                        </div>
+                        <div style="float: right">
+                            <div class="switch-field">
+                                <!-- Choice "Ja" -->
+                                <input type="radio" id="parking_sensor-one" name="parking_sensor" value="ja"/>
+                                <label for="parking_sensor-one" style="height: 15px">Ja</label>
+                                <!-- Choice "Nej" -->
+                                <input type="radio" id="parking_sensor-two" name="parking_sensor" value="nej"
+                                       checked/>
+                                <label for="parking_sensor-two" style="height: 15px">Nej</label>
+                            </div>
+                        </div>
+                        <br> <br>
+                        <div style="float: left">
+                            <span>Electric Adjustable Side Mirror</span>
+                        </div>
+                        <div style="float: right">
+                            <div class="switch-field">
+                                <!-- Choice "Ja" -->
+                                <input type="radio" id="electric_adjustable_side_mirror-one"
+                                       name="electric_adjustable_side_mirror" value="ja"/>
+                                <label for="electric_adjustable_side_mirror-one" style="height: 15px">Ja</label>
+                                <!-- Choice "Nej" -->
+                                <input type="radio" id="electric_adjustable_side_mirror-two"
+                                       name="electric_adjustable_side_mirror" value="nej" checked/>
+                                <label for="electric_adjustable_side_mirror-two" style="height: 15px">Nej</label>
+                            </div>
+                        </div>
+                        <br> <br>
+                        <div style="float: left">
+                            <span>Alarm</span>
+                        </div>
+                        <div style="float: right">
+                            <div class="switch-field">
+                                <!-- Choice "Ja" -->
+                                <input type="radio" id="alarm-one" name="alarm" value="ja"/>
+                                <label for="alarm-one" style="height: 15px">Ja</label>
+                                <!-- Choice "Nej" -->
+                                <input type="radio" id="alarm-two" name="alarm" value="nej" checked/>
+                                <label for="alarm-two" style="height: 15px">Nej</label>
+                            </div>
+                        </div>
+                        <br> <br>
+                        <div style="float: left">
+                            <span>USB</span>
+                        </div>
+                        <div style="float: right">
+                            <div class="switch-field">
+                                <!-- Choice "Ja" -->
+                                <input type="radio" id="usb-one" name="usb" value="ja"/>
+                                <label for="usb-one" style="height: 15px">Ja</label>
+                                <!-- Choice "Nej" -->
+                                <input type="radio" id="usb-two" name="usb" value="nej" checked/>
+                                <label for="usb-two" style="height: 15px">Nej</label>
+                            </div>
+                        </div>
+                        <br> <br>
+                        <div style="float: left">
+                            <span>Lane Departure Warning</span>
+                        </div>
+                        <div style="float: right">
+                            <div class="switch-field">
+                                <!-- Choice "Ja" -->
+                                <input type="radio" id="lane_departure_warning-one" name="lane_departure_warning"
+                                       value="ja"/>
+                                <label for="lane_departure_warning-one" style="height: 15px">Ja</label>
+                                <!-- Choice "Nej" -->
+                                <input type="radio" id="lane_departure_warning-two" name="lane_departure_warning"
+                                       value="nej" checked/>
+                                <label for="lane_departure_warning-two" style="height: 15px">Nej</label>
+                            </div>
+                        </div>
+                        <br> <br>
+                    </fieldset>
+                </div>
+                <input class="input-button-style" type="submit" value="Opret">
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,336 @@
+.boxBorderInfo {
+    background: rgba(248, 248, 255, 0.5);
+    font-size: 20px;
+    width: 660px;
+    padding: 10px;
+    border: 1px solid lightgray;
+    /*margin: 10px 273px 10px 273px;*/
+    margin: 20px auto;
+    top: 80px;
+    box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.50);
+}
+
+.boxBorderDetailInfo {
+    background: rgba(248, 248, 255, 0.5);
+    font-size: 20px;
+    width: 700px;
+    padding: 10px;
+    border: 1px solid lightgray;
+    margin: 20px auto;
+    top: 80px;
+    box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.50);
+}
+
+.boxFeltDetailLeft {
+    width: 44%;
+    max-height: 400px;
+    padding: 10px;
+    margin: 25px auto auto 2%;
+    font-size: 20px;
+    text-align: center;
+    float: left;
+}
+
+.boxFeltDetailRight {
+    min-width: 150px;
+    max-height: 400px;
+    padding: 10px;
+    margin: 25px 2% auto auto;
+    font-size: 20px;
+    text-align: center;
+    float: right;
+    /*background: rgb(45 61 72);*/
+    border-radius: 10px;
+}
+
+.boxFeltDetailMiddle {
+    width: 44%;
+    max-height: 400px;
+    padding: 10px;
+    margin: 25px auto auto 25%;
+    font-size: 20px;
+    text-align: center;
+    float: left;
+}
+
+
+#editCarReport-boxFeltDetailCenter {
+    margin: 25px auto auto 25%;
+}
+
+input.input-style {
+    width: 255px;
+    height: 30px;
+    font-size: 15px;
+}
+input.input-styleView {
+    width: 275px;
+    height: 30px;
+    font-size: 15px;
+}
+select.select-style {
+    width: 263px;
+    height: 36px;
+    font-size: 15px;
+}
+
+input.input-button-style {
+    width: 215px;
+    height: 40px;
+    font-size: 20px;
+    border-radius: 25px;
+    margin: 50px 0px 20px 220px;
+    background-color: rgb(24,146,195);
+    color: white;
+}
+
+.reportItem-button-style {
+    width: 215px;
+    height: 40px;
+    font-size: 20px;
+    border-radius: 25px;
+    margin: 50px 0px 20px 235px;
+    background-color: rgb(24,146,195);
+    color: white;
+}
+
+legend {
+    position: relative;
+    bottom: 3px;
+    text-align: center;
+}
+
+fieldset {
+    border-radius: 10px;
+}
+
+#underline {
+    width: 650px;
+    height: 1px;
+    background-color: #777;
+    margin-top: 100px;
+}
+
+.underline {
+    width: 700px;
+    height: 1px;
+    background-color: #777;
+    margin-top: 100px;
+}
+
+.feature-box {
+    position: relative;
+    left: 100px;
+    top: 25px;
+    width: 410px;
+    float: left;
+    line-height: 25px;
+    vertical-align: middle;
+}
+
+/*Radio button */
+.switch-field {
+    display: flex;
+    align-items: center;
+}
+
+.switch-field input {
+    position: absolute;
+    height: 1px;
+    width: 1px;
+    border: 0;
+    overflow: hidden;
+}
+
+.switch-field label {
+    background-color: #e4e4e4;
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 14px;
+    line-height: 1;
+    text-align: center;
+    padding: 5px 10px;
+    margin-right: -3px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.switch-field label:hover {
+    cursor: pointer;
+}
+
+/* default farven lysegrøn*/
+.switch-field input:checked + label {
+    background-color: #a5dc86;
+    box-shadow: none;
+}
+/* Farven rødelig når input værdien i radio button er nej */
+.switch-field input[value="nej"]:checked + label {
+    background-color: rgb(220, 134, 134);
+    box-shadow: none;
+}
+
+.switch-field label:first-of-type {
+    border-radius: 4px 0 0 4px;
+}
+
+.switch-field label:last-of-type {
+    border-radius: 0 4px 4px 0;
+}
+
+.collapsibleView {
+    visibility: visible;
+}
+
+/* Detail Car */
+.collapsible {
+    background-color: #777;
+    color: white;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+}
+
+.active, .collapsible:hover {
+    background-color: #555;
+}
+
+.collapsible:after {
+    content: '\002B';
+    color: white;
+    font-weight: bold;
+    float: right;
+    margin-left: 5px;
+}
+
+.active:after {
+    content: "\2212";
+}
+
+.content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+    background-color: #f1f1f1;
+}
+
+/* Manage Cars */
+/* Details */
+.filterBox {
+    width: 336px;
+    height: 135px;
+    line-height: 30px;
+    vertical-align: middle;
+    margin: 0 auto 5px auto;
+    border: 1px solid #777;
+    background-color: #eeeeee;
+}
+
+.divCenterInside {
+    width: 335px;
+    height: 115px;
+    line-height: 30px;
+    margin: 10px auto 10px auto;
+    text-align: center
+}
+
+details.carDetails > summary {
+    margin: 0 auto;
+    padding: 4px;
+    width: 330px;
+    background-color: #777;
+    color: white;
+    text-align: left;
+    border: none;
+    box-shadow: 1px 1px 2px #bbbbbb;
+    cursor: pointer;
+}
+
+details.carDetails:not([open]) {
+    margin: 0 auto 5px auto;
+    max-height: 40px;
+}
+
+details.carDetails:not([open]) {
+    margin: 0 auto;
+    height: 45px;
+}
+
+details.carDetails[open] {
+    /*height: 2.5em;*/
+    overflow-y: hidden;
+    transition: max-height 0.2s ease-in-out;
+    max-height: 180px ;
+}
+
+/* Manage - style to option buttons */
+.btnStyle {
+    width: 70px;
+    height: 35px;
+    margin-bottom: 5px;
+}
+
+/* media screen */
+@media screen and (max-width: 1400px) {
+    .collapsibleView {
+        display: none;
+    }
+}
+
+
+@media screen and (max-width: 982px) {
+    .boxBorderInfo {
+        width: 420px;
+        /*height: 350vh;*/
+    }
+
+    .boxBorderDetailInfo {
+        width: 420px;
+    }
+
+    .boxFeltDetailLeft {
+        max-height: 400px;
+        margin: 25px auto auto 12%;
+        float: left;
+    }
+
+    .boxFeltDetailRight {
+        max-height: 400px;
+        margin: 25px auto auto 12%;
+        float: left;
+    }
+
+    .boxFeltDetailMiddle {
+        max-height: 400px;
+        margin: 25px auto auto 12%;
+    }
+
+    input.input-button-style {
+        margin: 50px 0px 20px 105px;
+    }
+
+    .reportItem-button-style {
+        margin: 50px 0px 20px 100px;
+    }
+
+    #editCarReport-boxFeltDetailCenter {
+        margin: 25px auto auto 12%;
+    }
+
+    .feature-box {
+        left: -15px;
+        top: 25px;
+    }
+
+    #underline{
+        margin-top: 230px;
+        width: 415px;
+    }
+    .underline{
+        margin-top: 230px;
+        width: 415px;
+    }
+}

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments :: head"></head>
+<body>
+<nav th:replace="fragments :: navigation"></nav>
+
+<nav th:replace="fragments :: navigationTop(~{::navTopTitle})">
+    <navTopTitle>
+        <h1><i class="fas fa-file-contract"></i> Kontrakt Detaljer</h1>
+    </navTopTitle>
+</nav>
+<div class="content-middle-outer">
+    <button class="button-font-size" onclick="window.location.href='/manageRentalContracts'">Tilbage</button>
+    <div class="content-middle-inner" style="flex-direction: column">
+        <div class="boxBorderDetailInfo">
+            <div class="boxFeltDetailLeft">
+                <fieldset>
+                    <legend>Kunde navn</legend>
+                    <label class="label-style" th:text="${customer.first_name + ' ' + customer.last_name}"></label>
+                </fieldset>
+            </div>
+            <div class="boxFeltDetailRight">
+                <fieldset>
+                    <legend>Bil</legend>
+                    <label class="label-style" th:text="${car.brand + ' ' + car.model}"></label>
+                </fieldset>
+            </div>
+            <div class="boxFeltDetailMiddle">
+                <fieldset>
+                    <legend>Max KM</legend>
+                    <label class="label-style" th:text="${rentalContract.max_km}"></label>
+                </fieldset><br>
+                <fieldset>
+                    <legend>Lejeperiode</legend>
+                        <span>Start Dato:</span>
+                        <label class="label-style" th:text="${rentalContract.start_date}"></label>
+
+                        <span>Slut Dato:</span>
+                        <label class="label-style" th:text="${rentalContract.end_date}"></label>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

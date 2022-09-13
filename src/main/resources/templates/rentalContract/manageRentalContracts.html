@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="fragments :: head"></head>
+<body>
+<nav th:replace="fragments :: navigation"></nav>
+
+<nav th:replace="fragments :: navigationTop(~{::navTopTitle})">
+    <navTopTitle>
+        <h1><i class="fas fa-file-contract" aria-hidden="true"></i> Lejekontrakter</h1>
+    </navTopTitle>
+</nav>
+
+<div class="content-middle-outer">
+    <button class="button-font-size" onclick="window.location.href='/'">Tilbage</button>
+    <div class="content-wrapper">
+        <div style="text-align: center">
+            <div style="font-size: 20px">
+                <table border="1" cellspacing="0" class="table-styling" id="myTable">
+                    <thead>
+                    <tr>
+                        <th class="box">Kontrakt id</th>
+                        <th class="box">Bil Nr.</th>
+                        <th class="box">Kunde Nr.</th>
+                        <th class="box">Start Odometer</th>
+                        <th class="box">Max KM</th>
+                        <th class="box">Start Dato</th>
+                        <th class="box">Slut Dato</th>
+                        <th class="box">Status</th>
+                        <th class="box">Muligheder</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="contract: ${rentalContracts}" class="table-row-height">
+                        <td th:text="${contract.contract_id}"/>
+                        <td th:text="${contract.car_number}"/>
+                        <td th:text="${contract.customer_id}"/>
+                        <td th:text="${contract.start_odometer}"/>
+                        <td th:text="${contract.max_km}"/>
+                        <td th:text="${contract.start_date}"/>
+                        <td th:text="${contract.end_date}"/>
+                        <td th:text="${contract.state}"/>
+                        <td style="width: 295px">
+                            <a th:href="@{'/detailRentalContract/'+${contract.contract_id}}"
+                               class="linksTagRemoveUnderline">
+                                <button class="btnStyle">Detaljer</button>
+                            </a>
+                            <a th:href="@{'/editRentalContract/'+${contract.contract_id}}"
+                               class="linksTagRemoveUnderline">
+                                <button class="btnStyle">Rediger</button>
+                            </a>
+                            <a th:href="@{'/deleteRentalContract/'+${contract.contract_id}}"
+                               class="linksTagRemoveUnderline">
+                                <button class="btnStyle"
+                                        onclick="return confirm('Er du sikker på du vil afslutte kontrakten?')">Slet
+                                </button>
+                            </a>
+                            <!-- afslutte kontrakt link/knap -->
+                            <button th:if="${contract.state == 'aktiv'}" class="btnStyle"
+                                    onclick="getClickID(this.id)" th:id="${contract.contract_id}">Afslut
+                            </button>
+                            <!--puts contract and car ids, and gets odometer user input on submit via form-->
+                            <div class="form-popup" th:id="${'myForm'+contract.contract_id}">
+                                <form action="/endRentalContract" class="form-container">
+                                    <h2>Afslut kontrakt</h2>
+
+                                    <input type="text" name="contract_id"
+                                           th:value="${contract.contract_id}" readonly hidden>
+                                    <input type="text" name="car_number" th:value="${contract.car_number}" readonly
+                                           hidden>
+                                    <label><b>Opdater odometer</b></label>
+                                    <input type="text" placeholder="Indtast den nye odometer" name="odometer"
+                                           th:id="${'odometer' + contract.contract_id}" required>
+                                    <br>
+
+                                    <a th:href="@{'/endRentalContract'}" class="linksTagRemoveUnderline">
+                                        <button type="submit" class="btn"onclick="return clickToCheckValue(this.id);"
+                                                th:id="${contract.contract_id}">
+                                            Afslut
+                                        </button>
+                                    </a>
+
+                                    <button type="button" class="btn cancel" onclick="closeForm()">Luk</button>
+                                </form>
+                            </div>
+
+                            <!-- Oprette skadesreport link/knap -->
+                            <a th:if="${contract.state == 'afsluttet'}"
+                               th:href="@{'/createCarReport/'+${contract.contract_id}}"
+                               class="linksTagRemoveUnderline">
+                                <button class="btnStyle" onclick="return confirm('Vil du oprette en rapport?')"
+                                        style="width: 150px">
+                                    Opret Skadesrapport
+                                </button>
+                            </a>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var contractId = 0;
+
+    function getClickID(clickID) {
+        contractId = clickID;
+        openForm();
+    }
+
+    function openForm() {
+        document.getElementById("myForm" + contractId).style.visibility = "visible"
+    }
+
+    function closeForm() {
+        document.getElementById("myForm" + contractId).style.visibility = "collapse"
+    }
+</script>
+
+<script>
+    var contractId = 0;
+
+    function clickToCheckValue(clickID) {
+        contractId = clickID;
+        var table = document.getElementById('myTable');
+        const inputVal = document.getElementById("odometer" + contractId).value;
+        const startOdometer = table.rows[contractId].cells[3].innerHTML;
+        if (parseInt(startOdometer) < parseInt(inputVal)) {
+            return confirm('Er du sikker på du vil afslutte kontrakten?')
+        } else {
+            alert("Ugyldigt\n" +
+                "det indtastet værdi (" + inputVal + ") " +
+                "er under start odometer (" + table.rows[contractId].cells[3].innerHTML + ")")
+            return false;
+        }
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:fragment="head">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/css/styles.css}"/>
+    <link rel="stylesheet" th:href="@{/css/styleNav.css}">
+    <link rel="stylesheet" th:href="@{/css/styleCar.css}">
+    <link rel="stylesheet" th:href="@{/css/styleEndPopup.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+</head>
+<body>
+
+<nav th:fragment="navigation">
+    <ul class="navbar">
+        <li>
+            <a th:href="@{/}" style="margin: 0px 0px 20px -14px; padding: 0">
+                <img src="../image/Logo_Bilabonnement.png"
+                     alt="Bilabonnement" style="float:left; height: 45px; background-color: white">
+            </a>
+        </li>
+        <li><a th:href="@{/}"><i class="material-icons" style="font-size: 17px"> dashboard</i> Dashboard</a></li>
+        <li><a th:href="@{/manageCars}"><i class="fa fa-car" aria-hidden="true"></i> Lager Oversigt</a></li>
+        <li><a th:href="@{/manageRentalContracts}"><i class="fas fa-file-contract" aria-hidden="true">
+            </i> Lejekontrakter</a>
+        </li>
+        <li><a th:href="@{/manageCustomer}"><i class="fas fa-users"></i> Kunderegister</a></li>
+        <li><a th:href="@{/manageReports}"><i class="fas fa-car-crash" aria-hidden="true"></i> Skaderegister</a></li>
+        <li>
+            <details class="fragmentsDetails">
+                <summary style="padding-bottom: 10px;">Opret</summary>
+                <ul class="navbar">
+                    <li><a th:href="@{/createCar}"><i class='fa fa-plus-circle'></i> Opret bil</a></li>
+                    <li><a th:href="@{/createRentalContract/0}"><i class="material-icons" style="font-size: 19px">note_add</i>
+                        Opret kontrakt</a></li>
+                    <li><a th:href="@{/createCustomer}"><i class="material-icons" style="font-size: 20px">person_add_alt_1</i>
+                        Opret kunde</a></li>
+                </ul>
+            </details>
+        </li>
+    </ul>
+</nav>
+
+
+<nav th:fragment="navigationTop(navTopTitle)" style="margin-left: 190px; margin-bottom: 5px; background: #363636;
+        font-family: 'Arial', sans-serif; border: 1px solid #000000;">
+    <ul class="nav-links" style="display: flex; justify-content: space-around;margin: 0;">
+        <li style="list-style: none;color: white;">
+            <th:block th:replace="${navTopTitle}"/>
+        </li>
+    </ul>
+</nav>
+
+
+</body>
+</html>
